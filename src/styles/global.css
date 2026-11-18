@@ -139,3 +139,71 @@ hr {
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
 }
+
+/* Listado de entradas, compartido por la portada y la bitácora. */
+.post-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.post-grid > li {
+	width: calc(50% - 1rem);
+}
+.post-grid > li:first-child {
+	width: 100%;
+	margin-bottom: 1rem;
+	text-align: center;
+}
+.post-grid > li:first-child img {
+	width: 100%;
+}
+.post-grid > li:first-child .title {
+	font-size: 2.369rem;
+}
+.post-grid img {
+	margin-bottom: 0.5rem;
+	border-radius: 12px;
+}
+.post-grid a {
+	display: block;
+	text-decoration: none;
+	transition: 0.2s ease;
+}
+.post-grid .title {
+	margin: 0;
+	color: rgb(var(--black));
+	line-height: 1;
+}
+.post-grid .date {
+	margin: 0;
+	color: rgb(var(--gray));
+}
+.post-grid a:hover h4,
+.post-grid a:hover .date {
+	color: rgb(var(--accent));
+}
+.post-grid a:hover img {
+	box-shadow: var(--box-shadow);
+}
+
+main.wide {
+	width: 960px;
+}
+@media (max-width: 720px) {
+	.post-grid {
+		gap: 0.5em;
+	}
+	.post-grid > li {
+		width: 100%;
+		text-align: center;
+	}
+	.post-grid > li:first-child {
+		margin-bottom: 0;
+	}
+	.post-grid > li:first-child .title {
+		font-size: 1.563em;
+	}
+}

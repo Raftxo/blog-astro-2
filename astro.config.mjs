@@ -6,7 +6,11 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
+	// El dominio lo configura el sitio de usuario (Raftxo.github.io) y se hereda
+	// en los sitios de proyecto. Este blog vive en /blog-astro-2/.
+	site: 'https://the-silent-pulse.com',
+	base: '/blog-astro-2',
+	trailingSlash: 'always',
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{

@@ -1,0 +1,31 @@
+---
+title: 'Hola mundo desde MDX'
+description: 'Una entrada de prueba para comprobar que los componentes también viven aquí.'
+pubDate: '2026-11-12'
+heroImage: '../../assets/blog-placeholder-1.jpg'
+heroImageAlt: 'Ilustración abstracta con formas geométricas y tonos azulados'
+---
+
+Esta entrada es pequeña y muy práctica: sirve para recordar que el contenido de The Silent Pulse no se limita a Markdown. Con MDX puedo mezclar texto y componentes cuando una idea lo pide.
+
+## Por qué MDX
+
+Es Markdown con la posibilidad de importar componentes. Para un blog, eso significa que puedo escribir casi todo en prosa y, de vez en cuando, inserto algo interactivo sin montar una aplicación entera.
+
+## Ejemplo
+
+Abajo hay un enlace generado con el mismo componente que usa la navegación del sitio. La gracia está en que respeta la ruta base del proyecto sin que yo tenga que escribirla aquí.
+
+import HeaderLink from '../../components/HeaderLink.astro';
+
+<HeaderLink href="#" onclick="alert('¡Hola desde MDX!')">
+	{'Pulsa para saludar'}
+</HeaderLink>
+
+## Para no olvidar
+
+- MDX se compila durante el build: no hay coste en el navegador salvo lo que se añada explícitamente.
+- Un componente dentro de una entrada debe importarse antes de usarse.
+- Si mañana este experimento deja de tener sentido, basta con renombrar el archivo a `.md`.
+
+Y con esto, el saludo queda cumplido.

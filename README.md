@@ -1,63 +1,71 @@
-# Astro Starter Kit: Blog
+# Raftxo | The Silent Pulse
 
-```sh
-npm create astro@latest -- --template blog
-```
+Blog personal de Raftxo construido con [Astro](https://astro.build/): entradas en Markdown/MDX, imágenes optimizadas, RSS, sitemap y fuente local Atkinson.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+La URL pública es **https://the-silent-pulse.com/blog-astro-2/**. El dominio `the-silent-pulse.com` está configurado en el sitio de usuario (`Raftxo.github.io`) y este repositorio hereda esa configuración como sitio de proyecto; por eso se publica en la subruta `/blog-astro-2/` y **no** debe configurarse un dominio propio en este repo.
 
-Features:
+> La biografía de *Acerca de mí* y el contenido de las entradas son textos ficticios de ejemplo, listos para sustituir por los reales.
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+## Comandos
 
-## 🚀 Project Structure
+| Comando | Acción |
+| :-- | :-- |
+| `npm install` | Instala dependencias |
+| `npm run dev` | Servidor de desarrollo en `http://localhost:4321/blog-astro-2/` |
+| `npm run check` | Comprueba tipos y plantillas Astro |
+| `npm run build` | Genera el sitio en `./dist/` |
+| `npm run preview` | Previsualiza el build localmente |
 
-Inside of your Astro project, you'll see the following folders and files:
+También puedes usar `astro dev --background`, `astro dev status` y `astro dev stop` para gestionar el servidor en segundo plano.
+
+## Estructura
 
 ```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+src/
+├── assets/            imágenes y fuentes
+├── components/        BaseHead, Header, HeaderLink, Footer, FormattedDate, PostCard
+├── content/blog/      entradas .md y .mdx
+├── layouts/           PageLayout (páginas) y BlogPost (entradas)
+├── pages/             /, /blog/, /about/, /rss.xml
+├── styles/global.css  estilos globales y listado de entradas
+├── consts.ts          título, descripción, autor y BASE
+└── content.config.ts  esquema de la colección `blog`
+public/                favicons (se sirven bajo /blog-astro-2/)
+.github/workflows/     despliegue en GitHub Pages
+astro.config.mjs       `site`, `base` y `trailingSlash`
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Añadir una entrada
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Crea un archivo en `src/content/blog/` con este frontmatter:
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+```md
+---
+title: 'Título de la entrada'
+description: 'Resumen corto'
+pubDate: '2026-11-18'
+updatedDate: '2026-11-20'  # opcional
+heroImage: '../../assets/blog-placeholder-1.jpg'  # opcional
+heroImageAlt: 'Descripción de la imagen'  # opcional
+draft: false  # opcional, por defecto false
+---
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+Las fechas se escriben en formato ISO (`YYYY-MM-DD`). Las entradas con `draft: true` no aparecen en el listado, en el RSS ni se generan como páginas.
 
-## 🧞 Commands
+Los enlaces internos se escriben relativos a la raíz del sitio (`/blog/`) y se prefijan automáticamente con `BASE` en `HeaderLink`, `PostCard` y el feed. Si añades un enlace manual, usa `BASE` desde `src/consts.ts`.
 
-All commands are run from the root of the project, from a terminal:
+## Despliegue
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+El workflow `.github/workflows/deploy.yml` compila y publica con la acción oficial de Astro en cada push a `master` (también se puede lanzar manualmente desde *Actions*).
 
-## 👀 Want to learn more?
+En `github.com/Raftxo/blog-astro-2` → **Settings → Pages**:
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **Source:** GitHub Actions.
+- **Custom domain:** dejar vacío. Se hereda del sitio `Raftxo.github.io`.
 
-## Credit
+En el repositorio `Raftxo.github.io` debe estar configurado `the-silent-pulse.com` como dominio personalizado, con los registros DNS que indique GitHub (registros `A`/`ALIAS` para el apex y, si se usa, un CNAME para `www`). Los cambios de DNS pueden tardar hasta 24 horas; después activa *Enforce HTTPS*.
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+## Créditos
+
+Basado en el starter oficial [Astro Blog](https://astro.build/) y en el estilo de [Bear Blog](https://github.com/HermanMartinus/bearblog/).

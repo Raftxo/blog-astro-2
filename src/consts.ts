@@ -1,5 +1,9 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
+// Datos globales del sitio. Importables desde cualquier parte con `import`.
 
-export const SITE_TITLE = 'El Blog de Raftxo';
+export const SITE_TITLE = 'Raftxo | The Silent Pulse';
 export const SITE_DESCRIPTION = '¡Bienvienid@!';
+export const AUTHOR = 'Raftxo';
+export const GITHUB_URL = 'https://github.com/Raftxo';
+
+// Con `trailingSlash: 'always'`, BASE_URL termina en '/'.
+export const BASE = import.meta.env.BASE_URL;
