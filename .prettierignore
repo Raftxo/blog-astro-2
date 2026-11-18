@@ -1,0 +1,9 @@
+dist/
+node_modules/
+.astro/
+package-lock.json
+public/favicon.ico
+public/apple-touch-icon.png
+
+# El contenido se escribe a mano; no reflowear los párrafos de las entradas.
+src/content/

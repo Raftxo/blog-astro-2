@@ -11,7 +11,13 @@ export default defineConfig({
 	site: 'https://the-silent-pulse.com',
 	base: '/blog-astro-2',
 	trailingSlash: 'always',
-	integrations: [mdx(), sitemap()],
+	integrations: [
+		mdx(),
+		sitemap({
+			// La página 404 no debe indexarse ni aparecer en el sitemap.
+			filter: (page) => !page.endsWith('/404/') && !page.endsWith('/404'),
+		}),
+	],
 	fonts: [
 		{
 			provider: fontProviders.local(),

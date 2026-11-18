@@ -1,6 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { BASE } from '../consts';
+import { withBase, withoutBase } from '../lib/url';
 
 type Props = HTMLAttributes<'a'> & { href: string };
 
@@ -8,10 +8,10 @@ const { href, class: className, ...props } = Astro.props;
 
 // Los href se escriben relativos a la raíz del sitio (p. ej. `/blog/`)
 // y se prefijan con BASE para que funcionen bajo /blog-astro-2/.
-const linkHref = `${BASE}${href.replace(/^\/+/, '')}`;
+const linkHref = withBase(href);
 const cleanPath = (value: string) => value.replace(/^\/+|\/+$/g, '') || '/';
 
-const currentPath = cleanPath(Astro.url.pathname.replace(BASE, ''));
+const currentPath = cleanPath(withoutBase(Astro.url.pathname));
 const targetPath = cleanPath(href);
 const isActive =
 	targetPath === '/'
@@ -19,7 +19,12 @@ const isActive =
 		: currentPath === targetPath || currentPath.startsWith(`${targetPath}/`);
 ---
 
-<a href={linkHref} class:list={[className, { active: isActive }]} {...props}>
+<a
+	href={linkHref}
+	class:list={[className, { active: isActive }]}
+	aria-current={isActive ? 'page' : undefined}
+	{...props}
+>
 	<slot />
 </a>
 <style>

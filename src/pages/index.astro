@@ -1,43 +1,57 @@
 ---
-import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
 import PostCard from '../components/PostCard.astro';
-import { BASE, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_NAME, SITE_TAGLINE, SITE_TITLE } from '../consts';
+import { getPublishedPosts } from '../lib/posts';
+import { withBase } from '../lib/url';
 
-const posts = (await getCollection('blog'))
-	.filter((post) => !post.data.draft)
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = await getPublishedPosts();
 const recentPosts = posts.slice(0, 3);
 ---
 
-<PageLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<PageLayout title={SITE_TITLE} description={SITE_TAGLINE}>
 	<section class="intro">
-		<h1>¡Bienvienid@!</h1>
+		<h1>{SITE_NAME}</h1>
+		<p class="greeting">¡Bienvienid@!</p>
 		<p>
-			Este es <strong>The Silent Pulse</strong>, el rincón de Raftxo para dejar constancia de las
-			ideas que no hacen ruido pero insisten en volver: código, música ambiente, libros a medias
-			y pequeños rituales para prestar atención.
+			Este es el rincón de Raftxo para dejar constancia de las ideas que no hacen ruido pero
+			insisten en volver: código, música ambiente, libros a medias y pequeños rituales para prestar
+			atención.
 		</p>
 		<p>
 			Aquí escribo sobre lo que aprendo construyendo cosas para la web y sobre lo que descubro
 			cuando bajo el volumen. Si te quedas un rato, ojalá encuentres algo que te suene conocido.
 		</p>
 		<p class="actions">
-			<a href={`${BASE}blog/`}>Entrar en la bitácora</a>
+			<a href={withBase('blog/')}>Entrar en la bitácora</a>
 			<span aria-hidden="true">·</span>
-			<a href={`${BASE}about/`}>Conocer a Raftxo</a>
+			<a href={withBase('about/')}>Conocer a Raftxo</a>
 		</p>
 	</section>
 
 	<h2>Últimas entradas</h2>
-	<ul class="post-grid">
-		{recentPosts.map((post) => <PostCard post={post} />)}
-	</ul>
+	{
+		recentPosts.length > 0 ? (
+			<ul class="post-grid">
+				{recentPosts.map((post, index) => (
+					<PostCard post={post} headingLevel={3} priority={index === 0} />
+				))}
+			</ul>
+		) : (
+			<p>Todavía no hay entradas publicadas.</p>
+		)
+	}
 </PageLayout>
 
 <style>
 	.intro h1 {
-		margin-bottom: 0.4em;
+		margin-bottom: 0.2em;
+	}
+	.greeting {
+		margin-bottom: 1.2em;
+		color: var(--accent);
+		font-size: 1.5em;
+		font-weight: 700;
 	}
 	.intro p {
 		max-width: 62ch;

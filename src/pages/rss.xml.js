@@ -1,22 +1,23 @@
-import { getCollection } from 'astro:content';
 import rss from '@astrojs/rss';
-import { BASE, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { AUTHOR, SITE_TAGLINE, SITE_TITLE } from '../consts';
+import { getPublishedPosts } from '../lib/posts';
+import { withBase } from '../lib/url';
 
 export async function GET(context) {
-	const posts = (await getCollection('blog'))
-		.filter((post) => !post.data.draft)
-		.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+	const posts = await getPublishedPosts();
+	const year = new Date().getFullYear();
 
 	return rss({
 		title: SITE_TITLE,
-		description: SITE_DESCRIPTION,
+		description: SITE_TAGLINE,
 		// El canal apunta a la subruta del proyecto, no a la raíz del dominio.
-		site: new URL(BASE, context.site),
+		site: new URL(withBase(''), context.site),
+		customData: `<language>es</language><copyright>© ${year} ${AUTHOR}</copyright><lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,
 		items: posts.map((post) => ({
 			title: post.data.title,
 			description: post.data.description,
 			pubDate: post.data.pubDate,
-			link: `${BASE}blog/${post.id}/`,
+			link: withBase(`blog/${post.id}/`),
 		})),
 	});
 }

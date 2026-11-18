@@ -1,0 +1,53 @@
+---
+import type { ImageMetadata } from 'astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+	image?: ImageMetadata;
+	imageAlt?: string;
+	type?: 'website' | 'article';
+	publishedTime?: string;
+	modifiedTime?: string;
+	noindex?: boolean;
+	jsonLd?: Record<string, unknown>;
+}
+
+const {
+	title,
+	description,
+	image,
+	imageAlt,
+	type = 'website',
+	publishedTime,
+	modifiedTime,
+	noindex = false,
+	jsonLd,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead
+			{title}
+			{description}
+			{image}
+			{imageAlt}
+			{type}
+			{publishedTime}
+			{modifiedTime}
+			{noindex}
+			{jsonLd}
+		/>
+	</head>
+	<body>
+		<a class="skip-link" href="#contenido">Saltar al contenido</a>
+		<Header />
+		<slot />
+		<Footer />
+	</body>
+</html>

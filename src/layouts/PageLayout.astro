@@ -1,27 +1,21 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
+import type { ImageMetadata } from 'astro';
+import BaseLayout from './BaseLayout.astro';
 
 interface Props {
 	title: string;
-	description: string;
+	description?: string;
 	wide?: boolean;
+	image?: ImageMetadata;
+	imageAlt?: string;
+	noindex?: boolean;
 }
 
-const { title, description, wide = false } = Astro.props;
+const { title, description, wide = false, image, imageAlt, noindex = false } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="es">
-	<head>
-		<BaseHead {title} {description} />
-	</head>
-	<body>
-		<Header />
-		<main class:list={[{ wide }]}>
-			<slot />
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout {title} {description} {image} {imageAlt} {noindex}>
+	<main id="contenido" class:list={[{ wide }]}>
+		<slot />
+	</main>
+</BaseLayout>

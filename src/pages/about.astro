@@ -1,26 +1,34 @@
 ---
 import { Image } from 'astro:assets';
 import AboutHeroImage from '../assets/about-raftxo.jpg';
+import { GITHUB_URL } from '../consts';
 import PageLayout from '../layouts/PageLayout.astro';
 
 const description = 'Una breve introducción a Raftxo y a The Silent Pulse.';
 ---
 
-<PageLayout title="Acerca de mí" description={description}>
+<PageLayout
+	title="Sobre mí"
+	description={description}
+	image={AboutHeroImage}
+	imageAlt="Composición abstracta de marcas negras sobre una superficie blanca"
+>
 	<Image
 		class="about-hero"
 		width={1020}
 		height={510}
 		src={AboutHeroImage}
 		alt="Composición abstracta de marcas negras sobre una superficie blanca"
+		loading="eager"
+		fetchpriority="high"
 	/>
 
 	<h1>Raftxo</h1>
 	<p>
 		Soy desarrollador, lector tardío de manuales y alguien a quien le gusta escuchar lo que ocurre
-		entre dos ideas. Paso gran parte del día escribiendo código y el resto intentando explicarlo
-		con palabras sencillas. The Silent Pulse nació de esa costumbre: anotar lo que aprendo antes
-		de que se convierta en rutina.
+		entre dos ideas. Paso gran parte del día escribiendo código y el resto intentando explicarlo con
+		palabras sencillas. The Silent Pulse nació de esa costumbre: anotar lo que aprendo antes de que
+		se convierta en rutina.
 	</p>
 	<p>
 		Me interesan las interfaces que no gritan, la música ambiental para concentrarse, los sistemas
@@ -39,6 +47,12 @@ const description = 'Una breve introducción a Raftxo y a The Silent Pulse.';
 		<li>Probando formatos de notas que se puedan mantener en el tiempo.</li>
 		<li>Buscando el equilibrio entre la curiosidad y la calma digital.</li>
 	</ul>
+
+	<p>
+		Puedes encontrarme en <a href={GITHUB_URL} target="_blank" rel="me noopener noreferrer"
+			>GitHub</a
+		>.
+	</p>
 </PageLayout>
 
 <style>

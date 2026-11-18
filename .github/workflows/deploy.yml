@@ -13,8 +13,31 @@ permissions:
   pages: write
   id-token: write
 
+# Un despliegue a la vez; cancela los que queden obsoletos.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v7
+      - name: Configurar Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Comprobar tipos y plantillas
+        run: npm run check
+      - name: Comprobar formato
+        run: npm run format:check
+
   build:
+    needs: check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout del repositorio

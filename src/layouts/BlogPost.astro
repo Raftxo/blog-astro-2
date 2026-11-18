@@ -1,95 +1,150 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
+import { AUTHOR, GITHUB_URL } from '../consts';
+import { withBase } from '../lib/url';
+import BaseLayout from './BaseLayout.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
 
-const { title, description, pubDate, updatedDate, heroImage, heroImageAlt } = Astro.props;
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroImageAlt } = post.data;
+
+const postUrl = new URL(withBase(`blog/${post.id}/`), Astro.site);
+
+// Misma transformación que usa BaseHead para Open Graph: así el JSON-LD no
+// fuerza a publicar el JPEG original de 2048×1024.
+const ogImage = heroImage
+	? await getImage({
+			src: heroImage,
+			width: 1200,
+			height: 630,
+			fit: 'cover',
+			format: 'jpeg',
+			quality: 82,
+		})
+	: undefined;
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: title,
+	description,
+	datePublished: pubDate.toISOString(),
+	dateModified: (updatedDate ?? pubDate).toISOString(),
+	author: { '@type': 'Person', name: AUTHOR, url: GITHUB_URL },
+	image: ogImage ? new URL(ogImage.src, Astro.site).href : undefined,
+	mainEntityOfPage: postUrl.href,
+	url: postUrl.href,
+};
 ---
 
-<html lang="es">
-	<head>
-		<BaseHead title={title} description={description} image={heroImage} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
-
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{
-						heroImage && (
-							<Image
-								width={1020}
-								height={510}
-								src={heroImage}
-								alt={heroImageAlt ?? title}
-							/>
-						)
-					}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Última actualización: <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
+<BaseLayout
+	title={title}
+	description={description}
+	image={heroImage}
+	imageAlt={heroImageAlt}
+	type="article"
+	publishedTime={pubDate.toISOString()}
+	modifiedTime={updatedDate?.toISOString()}
+	jsonLd={jsonLd}
+>
+	<main id="contenido">
+		<article>
+			<div class="hero-image">
+				{
+					heroImage && (
+						<Image
+							src={heroImage}
+							alt={heroImageAlt ?? title}
+							width={1600}
+							height={800}
+							loading="eager"
+							fetchpriority="high"
+						/>
+					)
+				}
+			</div>
+			<div class="prose">
+				<a class="back-link" href={withBase('blog/')}>← Volver a la bitácora</a>
+				<div class="title">
+					<div class="date">
+						<FormattedDate date={pubDate} />
+						{
+							updatedDate && (
+								<div class="last-updated-on">
+									Última actualización: <FormattedDate date={updatedDate} />
+								</div>
+							)
+						}
 					</div>
-					<slot />
+					<h1>{title}</h1>
+					<p class="lead">{description}</p>
+					<hr />
 				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
-</html>
+				<slot />
+			</div>
+		</article>
+	</main>
+</BaseLayout>
+
+<style>
+	main {
+		width: calc(100% - 2em);
+		max-width: 100%;
+		margin: 0;
+	}
+	.hero-image {
+		width: 100%;
+	}
+	.hero-image img {
+		display: block;
+		margin: 0 auto;
+		border-radius: 12px;
+		box-shadow: var(--box-shadow);
+	}
+	.prose {
+		width: 720px;
+		max-width: calc(100% - 2em);
+		margin: auto;
+		padding: 1em;
+		color: rgb(var(--gray-dark));
+	}
+	.back-link {
+		display: inline-block;
+		margin-bottom: 1.5em;
+		font-size: 0.9em;
+		text-decoration: none;
+	}
+	.title {
+		margin-bottom: 1em;
+		padding: 1em 0;
+		text-align: center;
+		line-height: 1;
+	}
+	.title h1 {
+		margin: 0 0 0.5em 0;
+	}
+	.lead {
+		max-width: 60ch;
+		margin: 0 auto 1.5em;
+		color: rgb(var(--gray-dark));
+		font-size: 1.1em;
+		line-height: 1.6;
+	}
+	.date {
+		margin-bottom: 0.5em;
+		color: rgb(var(--gray));
+	}
+	.last-updated-on {
+		font-style: italic;
+	}
+	@media (max-width: 720px) {
+		.title {
+			line-height: 1.2;
+		}
+	}
+</style>

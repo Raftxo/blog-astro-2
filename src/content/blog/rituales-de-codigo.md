@@ -14,7 +14,7 @@ Empezar es la parte difícil. No escribir el programa, sino abrir el editor y ac
 2. Separo lo que es imprescindible de lo que sería bonito tener.
 3. Abro el terminal y compruebo que el proyecto arranca. Si no arranca, arreglo eso primero.
 
-La frase de una frase es clave. Si no cabe en una línea, probablemente estoy intentando resolver dos cosas a la vez.
+La frase de una sola línea es clave. Si no cabe en una línea, probablemente estoy intentando resolver dos cosas a la vez.
 
 ## Durante el trabajo
 
