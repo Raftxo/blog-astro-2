@@ -2,8 +2,8 @@
 title: 'Construir con Astro'
 description: 'Cómo está montado este sitio y por qué eligí contenido en archivos en lugar de una base de datos.'
 pubDate: '2026-09-14'
-heroImage: '../../assets/blog-placeholder-5.jpg'
-heroImageAlt: 'Pantalla con líneas de código y un esquema de carpetas al lado'
+heroImage: '../../assets/hero-construir.jpg'
+heroImageAlt: 'Dibujo abstracto en blanco y negro de formas geométricas'
 ---
 
 Este sitio es un buen ejemplo de por qué me gusta Astro: casi todo es texto, y el texto vive en archivos que puedo leer, mover y versionar con Git.

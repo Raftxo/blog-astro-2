@@ -2,8 +2,8 @@
 title: 'Notas sobre la calma digital'
 description: 'Pequeñas decisiones para que las herramientas no ocupen toda la atención.'
 pubDate: '2026-10-28'
-heroImage: '../../assets/blog-placeholder-4.jpg'
-heroImageAlt: 'Ventana abierta con luz natural y pocos objetos sobre la mesa'
+heroImage: '../../assets/hero-calma.jpg'
+heroImageAlt: 'Fondo beige con líneas onduladas suaves'
 ---
 
 La calma digital no es desconectar. Es elegir cuándo estar conectado y cuándo no, y aceptar que esa elección cambia según el día. Estas son las decisiones que me han funcionado últimamente.

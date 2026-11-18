@@ -2,8 +2,8 @@
 title: 'El silencio que habla'
 description: 'Por qué este blog se llama The Silent Pulse y qué espero encontrar aquí.'
 pubDate: '2026-07-08'
-heroImage: '../../assets/blog-placeholder-3.jpg'
-heroImageAlt: 'Paisaje sereno al amanecer, con niebla baja y colores fríos'
+heroImage: '../../assets/hero-silencio.jpg'
+heroImageAlt: 'Composición abstracta de sombras suaves sobre una textura gris claro'
 ---
 
 Hay ideas que no necesitan hacerse ruido para ser importantes. Aparecen mientras caminas, mientras esperas que termine una compilación o justo antes de dormir, y se escapan si no las anotas. Este blog es un intento de retenerlas un poco más.

@@ -45,7 +45,7 @@ title: 'Título de la entrada'
 description: 'Resumen corto'
 pubDate: '2026-11-18'
 updatedDate: '2026-11-20'  # opcional
-heroImage: '../../assets/blog-placeholder-1.jpg'  # opcional
+heroImage: '../../assets/hero-silencio.jpg'  # opcional
 heroImageAlt: 'Descripción de la imagen'  # opcional
 draft: false  # opcional, por defecto false
 ---
@@ -69,3 +69,5 @@ En el repositorio `Raftxo.github.io` debe estar configurado `the-silent-pulse.co
 ## Créditos
 
 Basado en el starter oficial [Astro Blog](https://astro.build/) y en el estilo de [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+
+Las imágenes abstractas de `src/assets/` proceden de [Unsplash](https://unsplash.com/) y se usan bajo la [Unsplash License](https://unsplash.com/license) (y, en el caso de `hero-construir.jpg`, también bajo CC0/dominio público). Créditos a sus autores: [Liana S](https://unsplash.com/photos/WEXLsbwBrKs), [Akira Hojo](https://unsplash.com/photos/m7saoOljNxI), [Neeme, Gunnar](https://unsplash.com/photos/Rz8whmE18wA), [Pawel Czerwinski](https://unsplash.com/photos/4B3m1zRofV8), [Solen Feyissa](https://unsplash.com/photos/MJJ9ik9m3J4) y [Carlos Felipe Ramírez Mesa](https://unsplash.com/photos/8zk5kb_WrnQ).

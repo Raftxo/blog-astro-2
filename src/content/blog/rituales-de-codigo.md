@@ -2,8 +2,8 @@
 title: 'Rituales de código'
 description: 'Pequeños hábitos que me ayudan a empezar a programar sin depender de la inspiración.'
 pubDate: '2026-08-02'
-heroImage: '../../assets/blog-placeholder-2.jpg'
-heroImageAlt: 'Escritorio ordenado con un portátil, una libreta y una taza de café'
+heroImage: '../../assets/hero-rituales.jpg'
+heroImageAlt: 'Ilustración abstracta en blanco y negro de trazos sobre un fondo claro'
 ---
 
 Empezar es la parte difícil. No escribir el programa, sino abrir el editor y aceptar que las primeras líneas serán incómodas. Con el tiempo he dejado de esperar a tener ganas y he sustituido la inspiración por una serie de rituales pequeños.
